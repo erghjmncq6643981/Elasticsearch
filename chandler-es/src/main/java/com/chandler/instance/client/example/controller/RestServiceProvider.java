@@ -1,11 +1,18 @@
 package com.chandler.instance.client.example.controller;
 
+import com.chandler.instance.client.example.document.Book;
+import com.chandler.instance.client.example.entity.BookRequest;
 import com.chandler.instance.client.example.entity.Person;
+import com.chandler.instance.client.example.service.BookService;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
+import java.util.Optional;
 
 /**
  * restful风格的接口
@@ -15,64 +22,43 @@ import io.swagger.annotations.ApiParam;
  */
 @Api( tags = "服务调用者Demo接口")
 @RestController
+@Slf4j
 public class RestServiceProvider {
 
-    @Value("${server.port}")
-    private String port;
-    @Value("${spring.cloud.client.ip-address}")
-    private String ipAddress;
+    @Autowired
+    private BookService bookService;
 
     /**
-     * @param name
-     * @return Person
-     * @Description: post接口
-     * @create date 2018年5月19日上午9:44:08
+     * @param [id]
+     * @return com.chandler.instance.client.example.document.Book
+     * @Description: 根据序号精确查询book
+     *
+     * @Author chandler
+     * @create 2019-10-13 16:18
      */
-    @ApiOperation(value = "post请求测试")
-    @RequestMapping(value = "/demo/postPerson", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Person postPerson(@ApiParam(value = "姓名", required = true, defaultValue = "chandler") @RequestParam("name") String name) {
-        Person person = new Person();
-        person.setName(name);
-        person.setAge("10");
-        person.setSex("man");
-        return person;
+    @ApiOperation(value = "根据序号查询文档")
+    @RequestMapping(value = "/book/search", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Book postPerson(@ApiParam(value = "序号", required = true, defaultValue = "1") @RequestParam("id") String id) {
+        Optional<Book> optional=bookService.findById(id);
+        Book book=optional.get();
+        log.info(book.toString());
+        return book;
     }
 
     /**
-     * @param person
-     * @return Person
-     * @Description: post接口
-     * @create date 2018年6月27日下午5:50:56
+     * @param [request]
+     * @return java.lang.String
+     * @Description: 将book对象写入到ES中
+     *
+     * @Author chandler
+     * @create 2019-10-13 16:25
      */
-    @RequestMapping(value = "/body/postPerson", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Person postPerson(@RequestBody Person person) {
-        person.setName("kyle");
-        person.setAge("10");
-        person.setSex("man");
-        return person;
-    }
-
-    /**
-     * @param name
-     * @return String
-     * @Description: get接口
-     * @create date 2018年5月19日上午9:46:34
-     */
-    @RequestMapping(value = "/demo/getHost", method = RequestMethod.GET)
-    public String getHost(@ApiParam(value = "姓名",required = true, defaultValue = "chandler")@RequestParam("name") String name) {
-        return "hi, " + name + "! i from " + ipAddress + ":" + port;
-    }
-
-    /**
-     * @param name
-     * @param age
-     * @return String
-     * @Description: get接口,包含header信息
-     * @create date 2018年6月27日下午5:43:29
-     */
-    @RequestMapping(value = "/head/getHost", method = RequestMethod.GET)
-    public String getHost(@ApiParam(value = "姓名", required = true, defaultValue = "chandler") @RequestParam("name") String name,
-                          @ApiParam(value = "年龄", required = true, defaultValue = "18" ,example = "18") @RequestHeader int age) {
-        return "hi, " + name + ", your age is " + age + "! i from " + ipAddress + ":" + port;
+    @ApiOperation(value = "新建文档")
+    @RequestMapping(value = "/book/save", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public String postPerson(@RequestBody BookRequest request) {
+        Book book=new Book(request);
+        log.info(book.toString());
+        bookService.save(book);
+        return "success";
     }
 }
