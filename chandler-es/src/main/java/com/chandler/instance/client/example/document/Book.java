@@ -22,7 +22,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * @author 钱丁君-chandler 2019-10-13 14:59
  * @since 1.8
  */
-@Document(indexName = "book", type = "program")
+@Document(indexName = "book", type = "_doc")
 @Data
 public class Book {
 

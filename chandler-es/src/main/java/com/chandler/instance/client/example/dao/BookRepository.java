@@ -17,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
- * 类功能描述
+ * 图书仓库
  *
  * @author 钱丁君-chandler 2019-10-13 15:27
  * @since 1.8

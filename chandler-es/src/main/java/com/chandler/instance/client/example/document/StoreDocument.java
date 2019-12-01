@@ -20,7 +20,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * @author 钱丁君-chandler 2019-10-13 14:12
  * @since 1.8
  */
-@Document(indexName = "store", type = "base")
+@Document(indexName = "store", type = "_doc")
 @Data
 public class StoreDocument {
 }
