@@ -1,0 +1,9 @@
+version: '3'
+services:
+  filebeat:
+    image: prima/filebeat:latest
+    #restart: always
+    volumes:
+      - ./config/filebeat.yml:/filebeat.yml
+      - ~/dockerdata/filebeat:/data
+      - /var/lib/docker/containers:/var/lib/docker/containers

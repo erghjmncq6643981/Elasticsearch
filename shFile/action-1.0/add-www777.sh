@@ -1,4 +1,4 @@
-ADDRESS=122.152.219.156:9200
+ADDRESS=localhost:9200
 curl -s -H "Content-Type: application/json; charset=utf-8" -X PUT "$ADDRESS/commodity-info/_doc/www777?pretty" -d'{
   "type_num": "碳酸饮料",
   "name": "可口可乐",

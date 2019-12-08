@@ -1,0 +1,30 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /logs/*/*.log
+  json.keys_under_root: true
+  json.overwrite_keys: true
+  json.add_error_key: true
+ 
+filebeat.config.modules:
+  ##加载modules的配置
+  path: ${path.config}/modules.d/*.yml
+  # Set to true to enable config reloading
+  reload.enabled: false
+ 
+#-------------------------- Elasticsearch output ------------------------------
+# 这里我们不输出到es，果断注释掉
+output.elasticsearch:
+  index: "chandler-es"
+  # Array of hosts to connect to.
+  hosts: ["es-6.8.3:9200"]
+  #index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"       
+ 
+#============================== Kibana =====================================
+# Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.
+# This requires a Kibana endpoint configuration.
+setup.kibana:
+  host: "kibana-6:5601"
+ 
+setup.dashboards:
+  enabled: true
