@@ -12,9 +12,15 @@
 package com.chandler.instance.client.example.document;
 
 import com.chandler.instance.client.example.entity.BookRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import java.util.Date;
 
 /**
  * 图书
@@ -30,7 +36,10 @@ public class Book {
   private String title;
   private String author;
   private String context;
-  private String publishDate;
+  @Field( type = FieldType.Date, format = DateFormat.custom,
+          pattern = "yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || yyyy/MM/dd HH:mm:ss|| yyyy/MM/dd ||epoch_millis")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd HH:mm:ss")
+  private Date publishDate;
 
   public Book(){}
 

@@ -17,6 +17,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.Date;
+
 /**
  * 图书请求对象
  *
@@ -35,5 +37,5 @@ public class BookRequest {
   @ApiModelProperty(value = "内容",example="Elasticsearch is a highly scalable open-source full-text search and analytics engine. It allows you to store, search, and analyze big volumes of data quickly and in near real time. It is generally used as the underlying engine/technology that powers applications that have complex search features and requirements.")
   private String context;
   @ApiModelProperty(value = "发布时间",example="2019-10-13")
-  private String publishDate;
+  private Date publishDate;
 }
