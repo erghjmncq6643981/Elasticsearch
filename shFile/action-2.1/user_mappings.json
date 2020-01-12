@@ -1,0 +1,126 @@
+{
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 0,
+        "analysis": {
+            "normalizer": {
+                "my_normalizer": {
+                    "type": "custom",
+                    "char_filter": [],
+                    "filter": [
+                        "lowercase",
+                        "asciifolding"
+                    ]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "_doc": {
+            "_meta": {
+                "class": "com.chandler.instance.client.example.entity.User",
+                "version": {
+                    "min": "1.0",
+                    "max": "1.3"
+                }
+            },
+            "_field_names": {
+                "enabled": false
+            },
+            "_source": {
+                "enabled": false
+            },
+            "properties": {
+                "useName": {
+                    "type": "keyword",
+                    "store": true,
+                    "copy_to": "full_name",
+                    "ignore_above": 20,
+                    "index": true,
+                    "norms": false
+                },
+                "password": {
+                    "type": "keyword",
+                    "store": true,
+                    "normalizer": "my_normalizer",
+                    "ignore_above": 20,
+                    "norms": false
+                },
+                "age": {
+                    "type": "short",
+                    "store": true,
+                    "coerce": true,
+                    "copy_to": "full_name",
+                    "doc_values": true,
+                    "ignore_malformed": true
+                },
+                "brithday": {
+                    "type": "date",
+                    "store": true,
+                    "copy_to": "full_name",
+                    "format": "date",
+                    "null_value": "NULL"
+                },
+                "addresses": {
+                    "type": "text",
+                    "store": true,
+                    "copy_to": "full_name",
+                    "fields": {
+                        "company": {
+                            "type": "keyword"
+                        },
+                        "home": {
+                            "type": "keyword"
+                        }
+                    },
+                    "norms": false
+                },
+                "introduction": {
+                    "type": "text",
+                    "similarity": "BM25",
+                    "analyzer": "standard",
+                    "search_analyzer": "standard",
+                    "boost": 1,
+                    "doc_values": false,
+                    "fielddata": true,
+                    "fielddata_frequency_filter": {
+                        "min": 0.001,
+                        "max": 0.1,
+                        "min_segment_size": 500
+                    },
+                    "index_options": "offsets",
+                    "position_increment_gap": 0,
+                    "term_vector": "with_positions_offsets"
+                },
+                "memberFlag": {
+                    "type": "boolean",
+                    "copy_to": "full_name"
+                },
+                "tags": {
+                    "type": "keyword",
+                    "eager_global_ordinals": true,
+                    "null_value": "NULL"
+                },
+                "active": {
+                    "type": "long",
+                    "doc_values": true,
+                    "ignore_malformed": false
+                },
+                "session_data": {
+                    "enabled": false,
+                    "dynamic": true,
+                    "properties": {}
+                },
+                "updateTime": {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss"
+                },
+                "onlineTime": {
+                    "type": "date",
+                    "doc_values": true,
+                    "format": "epoch_millis"
+                }
+            }
+        }
+    }
+}
