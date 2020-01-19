@@ -20,7 +20,7 @@
         <spring-data-elasticsearch.version>3.2.4.RELEASE</spring-data-elasticsearch.version>
         <spring-data-commons.version>2.2.4.RELEASE</spring-data-commons.version>
         <elasticsearch.version>6.8.3</elasticsearch.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.10.2</jackson.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <lombok.version>1.18.8</lombok.version>
         <guava.version>28.2-jre</guava.version>
