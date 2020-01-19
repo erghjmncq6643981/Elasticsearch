@@ -34,11 +34,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Flux<User> selectUsersByUsename(String useName) {
-        return userRepository.selectUsersByUsename(useName);
-    }
-
-    @Override
     public Flux<User> findAll() {
         return userRepository.findAll();
     }

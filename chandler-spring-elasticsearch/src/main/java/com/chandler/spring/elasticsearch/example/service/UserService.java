@@ -32,7 +32,7 @@ public interface UserService {
      * @Autnor chandler
      * @create 2020/1/19 6:43 PM
      */
-    Flux<User> selectUsersByUsename(String useName);
+//    Flux<User> selectUsersByUsename(String useName);
 
     /**
      * @param []

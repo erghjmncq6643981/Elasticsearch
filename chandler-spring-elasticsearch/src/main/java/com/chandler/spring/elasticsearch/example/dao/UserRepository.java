@@ -24,5 +24,4 @@ import reactor.core.publisher.Flux;
  */
 public interface UserRepository extends ReactiveElasticsearchRepository<User,String> {
 
-    Flux<User> selectUsersByUsename(String useName);
 }

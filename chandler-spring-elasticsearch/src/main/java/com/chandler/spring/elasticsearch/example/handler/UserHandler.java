@@ -18,7 +18,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
  * 类功能描述
@@ -34,14 +40,16 @@ public class UserHandler {
     @Autowired
     private UserService userService;
 
-    public Flux<UserGenerate> findAll() {
-        return userService.findAll().flatMap(u -> {
-            UserGenerate userResponse = UserGenerate.builder().build();
-            BeanUtils.copyProperties(u, userResponse);
+    public Mono<ServerResponse> findAll(ServerRequest request) {
+        Flux<UserGenerate> userGenerateFlux=userService.findAll().flatMap(u -> {
+            UserGenerate userGenerate = UserGenerate.builder().build();
+            BeanUtils.copyProperties(u, userGenerate);
             return Flux.generate(sink -> {
-                sink.next(userResponse);
+                sink.next(userGenerate);
                 sink.complete();
             });
         });
+        return ok().contentType(APPLICATION_STREAM_JSON)
+                .body(userGenerateFlux, UserGenerate.class);
     }
 }

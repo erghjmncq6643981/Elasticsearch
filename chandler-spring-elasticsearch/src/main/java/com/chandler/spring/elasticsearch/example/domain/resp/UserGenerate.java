@@ -13,6 +13,7 @@
 package com.chandler.spring.elasticsearch.example.domain.resp;
 
 import com.chandler.spring.elasticsearch.example.entity.Address;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 @Builder
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserGenerate {
     private String useName;
