@@ -13,6 +13,9 @@
 package com.chandler.spring.elasticsearch.example.domain.resp;
 
 import com.chandler.spring.elasticsearch.example.entity.Address;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -23,7 +26,10 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.8
  */
-public class UserResponse {
+@Builder
+@Data
+@NoArgsConstructor
+public class UserGenerate {
     private String useName;
     private String password;
     private short age;

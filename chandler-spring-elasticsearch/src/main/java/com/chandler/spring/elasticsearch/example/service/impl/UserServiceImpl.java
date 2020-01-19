@@ -15,6 +15,7 @@ package com.chandler.spring.elasticsearch.example.service.impl;
 import com.chandler.spring.elasticsearch.example.dao.UserRepository;
 import com.chandler.spring.elasticsearch.example.entity.User;
 import com.chandler.spring.elasticsearch.example.service.UserService;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -27,6 +28,7 @@ import reactor.core.publisher.Mono;
  * @since 1.8
  */
 @Service
+@Configuration
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
