@@ -12,22 +12,23 @@
  */
 package com.chandler.spring.elasticsearch.example.handler;
 
-import com.chandler.spring.elasticsearch.example.domain.req.UserRequest;
+import com.alibaba.fastjson.JSON;
 import com.chandler.spring.elasticsearch.example.domain.resp.UserGenerate;
 import com.chandler.spring.elasticsearch.example.entity.User;
 import com.chandler.spring.elasticsearch.example.service.UserService;
-import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
@@ -59,9 +60,15 @@ public class UserHandler {
 
     public Mono<ServerResponse> save(ServerRequest request) {
         //未能成功解析
-        Mono<Boolean> result=Mono.just(true);
-        Mono<User> userReq = request.bodyToMono(User.class);
-        userReq.map(userService::save);
+        Mono<Boolean> result = Mono.just(true);
+        request.exchange().getRequest().getBody().subscribe(buffer->{
+            byte[] bytes = new byte[buffer.readableByteCount()];
+            buffer.read(bytes);
+            //释放buffer资源
+            DataBufferUtils.release(buffer);
+            User user=JSON.parseObject(new String(bytes),User.class);
+            userService.save(user);
+        });
         return ok().contentType(APPLICATION_STREAM_JSON)
                 .body(result, Boolean.class);
     }
