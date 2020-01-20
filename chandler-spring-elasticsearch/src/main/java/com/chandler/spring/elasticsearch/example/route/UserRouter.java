@@ -18,8 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
 import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 /**
@@ -35,6 +37,12 @@ public class UserRouter {
     public RouterFunction<ServerResponse> route(UserHandler userHandler) {
         return RouterFunctions
                 .route(GET("/users")
-                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::findAll);
+                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::findAll)
+                .andRoute(PUT("/users/save").and(accept(APPLICATION_STREAM_JSON)), userHandler::save)
+                .andRoute(GET("/users/find").and(accept(APPLICATION_STREAM_JSON)), userHandler::findByUsename)
+                .andRoute(GET("/users/find/{id}").and(accept(APPLICATION_STREAM_JSON)), userHandler::findById)
+                .andRoute(GET("/users/exists/{id}").and(accept(APPLICATION_STREAM_JSON)), userHandler::existsById);
+
     }
+
 }

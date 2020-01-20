@@ -25,14 +25,14 @@ import reactor.core.publisher.Mono;
  */
 public interface UserService {
     /**
-     * @param [useName]
+     * @param [name]
      * @return reactor.core.publisher.Flux<com.chandler.spring.elasticsearch.example.entity.User>
      * @Description: 根据用户名进行查询
      *
      * @Autnor chandler
      * @create 2020/1/19 6:43 PM
      */
-//    Flux<User> selectUsersByUsename(String useName);
+    Flux<User> findByUsename(String name);
 
     /**
      * @param []
@@ -53,6 +53,26 @@ public interface UserService {
      * @create 2020/1/19 6:44 PM
      */
     Flux<User> findAllById(Iterable<String> ids);
+
+    /**
+     * @param [id]
+     * @return reactor.core.publisher.Mono<com.chandler.spring.elasticsearch.example.entity.User>
+     * @Description: 通过ID查询用户
+     *
+     * @Autnor chandler
+     * @create 2020/1/20 3:41 PM
+     */
+    Mono<User> findById(String id);
+
+    /**
+     * @param [user]
+     * @return reactor.core.publisher.Mono<com.chandler.spring.elasticsearch.example.entity.User>
+     * @Description: 新增用户
+     *
+     * @Autnor chandler
+     * @create 2020/1/20 4:42 PM
+     */
+    Mono<User> save(User user);
 
     /**
      * @param [id]

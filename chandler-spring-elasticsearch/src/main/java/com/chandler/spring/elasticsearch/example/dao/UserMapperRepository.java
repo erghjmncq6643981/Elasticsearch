@@ -13,6 +13,7 @@
 package com.chandler.spring.elasticsearch.example.dao;
 
 import com.chandler.spring.elasticsearch.example.entity.User;
+import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository;
 import reactor.core.publisher.Flux;
 
@@ -22,6 +23,7 @@ import reactor.core.publisher.Flux;
  * @author 钱丁君-chandler 2020/1/19 6:27 PM
  * @since 1.8
  */
-public interface UserRepository extends ReactiveElasticsearchRepository<User,String> {
-
+public interface UserMapperRepository extends ReactiveElasticsearchRepository<User,String> {
+    @Query("{ \"bool\" : { \"must\" : { \"term\" : { \"useName\" : \"?0\" } } } }")
+    Flux<User> findByUsename(String name);
 }

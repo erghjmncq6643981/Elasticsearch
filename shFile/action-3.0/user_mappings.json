@@ -28,43 +28,27 @@
                 "enabled": false
             },
             "_source": {
-                "enabled": false
+                "enabled": true
             },
             "properties": {
                 "useName": {
-                    "type": "keyword",
-                    "store": true,
-                    "copy_to": "full_name",
-                    "ignore_above": 20,
-                    "index": true,
-                    "norms": false
+                    "type": "keyword"
                 },
                 "password": {
-                    "type": "keyword",
-                    "store": true,
-                    "normalizer": "my_normalizer",
-                    "ignore_above": 20,
-                    "norms": false
+                    "type": "keyword"
                 },
                 "age": {
-                    "type": "short",
-                    "store": true,
-                    "coerce": true,
-                    "copy_to": "full_name",
-                    "doc_values": true,
-                    "ignore_malformed": true
+                    "type": "short"
                 },
                 "brithday": {
                     "type": "date",
                     "store": true,
-                    "copy_to": "full_name",
                     "format": "date",
                     "null_value": "NULL"
                 },
                 "addresses": {
                     "type": "text",
                     "store": true,
-                    "copy_to": "full_name",
                     "fields": {
                         "company": {
                             "type": "keyword"
@@ -72,39 +56,22 @@
                         "home": {
                             "type": "keyword"
                         }
-                    },
-                    "norms": false
+                    }
                 },
                 "introduction": {
                     "type": "text",
                     "similarity": "BM25",
-                    "analyzer": "standard",
-                    "search_analyzer": "standard",
-                    "boost": 1,
-                    "doc_values": false,
-                    "fielddata": true,
-                    "fielddata_frequency_filter": {
-                        "min": 0.001,
-                        "max": 0.1,
-                        "min_segment_size": 500
-                    },
-                    "index_options": "offsets",
-                    "position_increment_gap": 0,
-                    "term_vector": "with_positions_offsets"
+                    "analyzer": "standard"
                 },
                 "memberFlag": {
-                    "type": "boolean",
-                    "copy_to": "full_name"
+                    "type": "boolean"
                 },
                 "tags": {
-                    "type": "keyword",
-                    "eager_global_ordinals": true,
-                    "null_value": "NULL"
+                    "type": "keyword"
                 },
                 "active": {
                     "type": "long",
-                    "doc_values": true,
-                    "ignore_malformed": false
+                    "doc_values": true
                 },
                 "session_data": {
                     "enabled": false,
@@ -113,18 +80,13 @@
                 },
                 "onlineTime": {
                     "type": "date",
-                    "doc_values": true,
                     "format": "epoch_millis"
                 },
-                "updateTime": {
-                    "type": "date",
-                    "format": "yyyy-MM-dd HH:mm:ss"
-                },
-                "createTime": {
-                    "type": "date",
-                    "format": "yyyy-MM-dd HH:mm:ss"
+                "@timestamp": {
+                    "format": "yyyy-MM-dd HH:mm:ss",
+                    "type": "date"
                 }
             }
         }
     }
-}
+}s

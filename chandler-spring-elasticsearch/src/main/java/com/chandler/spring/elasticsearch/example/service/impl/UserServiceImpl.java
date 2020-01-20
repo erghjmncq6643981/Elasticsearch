@@ -12,9 +12,11 @@
  */
 package com.chandler.spring.elasticsearch.example.service.impl;
 
-import com.chandler.spring.elasticsearch.example.dao.UserRepository;
+import com.chandler.spring.elasticsearch.example.dao.UserMapperRepository;
 import com.chandler.spring.elasticsearch.example.entity.User;
 import com.chandler.spring.elasticsearch.example.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -27,11 +29,18 @@ import reactor.core.publisher.Mono;
  * @version 1.0.0
  * @since 1.8
  */
+@Slf4j
 @Service
 @Configuration
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    @Autowired
+    private UserMapperRepository userRepository;
+
+    @Override
+    public Flux<User> findByUsename(String name) {
+        return userRepository.findByUsename(name);
+    }
 
     @Override
     public Flux<User> findAll() {
@@ -41,6 +50,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Flux<User> findAllById(Iterable<String> ids) {
         return userRepository.findAllById(ids);
+    }
+
+    @Override
+    public Mono<User> findById(String id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Mono<User> save(User user) {
+        return userRepository.save(user);
     }
 
     @Override

@@ -12,7 +12,6 @@
  */
 package com.chandler.spring.elasticsearch.example.domain.resp;
 
-import com.chandler.spring.elasticsearch.example.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,14 +31,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserGenerate {
+    private String id;
     private String useName;
     private String password;
     private short age;
     private String brithday;
-    private List<Address> addresses;
+    private List<String> addresses;
     private String introduction;
     private Boolean memberFlag;
-    private String tags;
+    private List<String> tags;
     private Long active;
     private Object sessionData;
     private String onlineTime;

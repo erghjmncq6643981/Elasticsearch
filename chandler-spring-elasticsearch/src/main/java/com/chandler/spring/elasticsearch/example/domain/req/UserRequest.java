@@ -12,9 +12,12 @@
  */
 package com.chandler.spring.elasticsearch.example.domain.req;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * 类功能描述
@@ -25,6 +28,19 @@ import lombok.NoArgsConstructor;
  */
 @Builder
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
+    private String id;
+    private String useName;
+    private String password;
+    private short age;
+    private String brithday;
+    private List<String> addresses;
+    private String introduction;
+    private Boolean memberFlag = false;
+    private List<String> tags;
+    private Long active = 0L;
+    private Object sessionData;
+    private String onlineTime;
 }

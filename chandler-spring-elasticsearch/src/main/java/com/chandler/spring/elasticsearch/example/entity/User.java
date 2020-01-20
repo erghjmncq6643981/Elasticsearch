@@ -12,9 +12,9 @@
  */
 package com.chandler.spring.elasticsearch.example.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Tolerate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -29,27 +29,31 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.8
  */
+@Builder
 @Data
-@ToString
+@AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "user", type = "_doc")
+@ToString
+@Document(indexName = "user", type = "_doc", shards = 1, replicas = 0)
 public class User {
-    @Field(value = "useName", type = FieldType.Keyword, copyTo = "full_name", store = true)
+    @Id
+    private String id;
+    @Field(value = "useName", type = FieldType.Keyword, store = true)
     private String useName;
-    @Field(value = "password", type = FieldType.Keyword, store = true, normalizer="my_normalizer")
+    @Field(value = "password", type = FieldType.Keyword, store = true)
     private String password;
-    @Field(value = "age", type = FieldType.Short, format = DateFormat.date, copyTo = "full_name", store = true)
+    @Field(value = "age", type = FieldType.Short, format = DateFormat.date, store = true)
     private short age;
-    @Field(value = "brithday", type = FieldType.Date, copyTo = "full_name", store = true)
+    @Field(value = "brithday", type = FieldType.Date, store = true)
     private String brithday;
-    @Field(value = "addresses", type = FieldType.Text, copyTo = "full_name", store = true)
-    private List<Address> addresses;
+    @Field(value = "addresses", type = FieldType.Text, store = true)
+    private List<String> addresses;
     @Field(value = "introduction", type = FieldType.Text, store = true)
     private String introduction;
-    @Field(value = "memberFlag", type = FieldType.Boolean, copyTo = "full_name")
+    @Field(value = "memberFlag", type = FieldType.Boolean)
     private Boolean memberFlag;
-    @Field(value = "tags", type = FieldType.Keyword)
-    private String tags;
+    @Field(value = "tags", type = FieldType.Auto)
+    private List<String> tags;
     @Field(value = "active", type = FieldType.Long)
     private Long active;
     @Field(value = "session_data", type = FieldType.Auto)
