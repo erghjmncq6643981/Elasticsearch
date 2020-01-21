@@ -38,11 +38,13 @@ public class UserRouter {
         return RouterFunctions
                 .route(GET("/users")
                         .and(accept(APPLICATION_STREAM_JSON)), userHandler::findAll)
-                .andRoute(PUT("/users/save").and(accept(APPLICATION_STREAM_JSON)), userHandler::save)
-                .andRoute(GET("/users/find").and(accept(APPLICATION_STREAM_JSON)), userHandler::findByUsename)
-                .andRoute(GET("/users/find/{id}").and(accept(APPLICATION_STREAM_JSON)), userHandler::findById)
-                .andRoute(GET("/users/exists/{id}").and(accept(APPLICATION_STREAM_JSON)), userHandler::existsById);
-
+                .andRoute(PUT("/users/save")
+                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::save)
+                .andRoute(GET("/users/find")
+                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::findByUsename)
+                .andRoute(GET("/users/find/{id}")
+                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::findById)
+                .andRoute(GET("/users/exists/{id}")
+                        .and(accept(APPLICATION_STREAM_JSON)), userHandler::existsById);
     }
-
 }

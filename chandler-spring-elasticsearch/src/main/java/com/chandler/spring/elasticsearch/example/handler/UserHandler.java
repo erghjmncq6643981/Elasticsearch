@@ -19,7 +19,6 @@ import com.chandler.spring.elasticsearch.example.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -33,7 +32,7 @@ import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
- * 类功能描述
+ * 处理器
  *
  * @author 钱丁君-chandler 2020/1/19 6:58 PM
  * @version 1.0.0

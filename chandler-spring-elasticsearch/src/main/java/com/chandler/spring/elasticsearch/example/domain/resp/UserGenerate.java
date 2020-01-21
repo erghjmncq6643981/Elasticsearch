@@ -12,10 +12,7 @@
  */
 package com.chandler.spring.elasticsearch.example.domain.resp;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -28,6 +25,7 @@ import java.util.List;
  */
 @Builder
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserGenerate {

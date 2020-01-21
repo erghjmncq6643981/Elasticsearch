@@ -22,7 +22,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.List;
 
 /**
- * 类功能描述
+ * 用户文档对象
  *
  * @author 钱丁君-chandler 2020/1/19 5:28 PM
  * @version 1.0.0
