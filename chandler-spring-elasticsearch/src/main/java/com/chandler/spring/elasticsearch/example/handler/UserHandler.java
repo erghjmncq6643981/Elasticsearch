@@ -12,22 +12,20 @@
  */
 package com.chandler.spring.elasticsearch.example.handler;
 
-import com.alibaba.fastjson.JSON;
+import com.chandler.spring.elasticsearch.example.domain.req.UserRequest;
 import com.chandler.spring.elasticsearch.example.domain.resp.UserGenerate;
 import com.chandler.spring.elasticsearch.example.entity.User;
 import com.chandler.spring.elasticsearch.example.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,18 +57,14 @@ public class UserHandler {
     }
 
     public Mono<ServerResponse> save(ServerRequest request) {
-        //未能成功解析
-        Mono<Boolean> result = Mono.just(true);
-        request.exchange().getRequest().getBody().subscribe(buffer->{
-            byte[] bytes = new byte[buffer.readableByteCount()];
-            buffer.read(bytes);
-            //释放buffer资源
-            DataBufferUtils.release(buffer);
-            User user=JSON.parseObject(new String(bytes),User.class);
-            userService.save(user);
+        return request.bodyToMono(UserRequest.class).map(userReq -> {
+            User u = User.builder().build();
+            BeanUtils.copyProperties(userReq, u);
+            return u;
+        }).flatMap(u -> {
+            return ServerResponse.ok().contentType(APPLICATION_STREAM_JSON)
+                    .body(userService.save(u), User.class);
         });
-        return ok().contentType(APPLICATION_STREAM_JSON)
-                .body(result, Boolean.class);
     }
 
     public Mono<ServerResponse> findAll(ServerRequest request) {
@@ -84,7 +78,7 @@ public class UserHandler {
     }
 
     public Mono<ServerResponse> findById(ServerRequest request) {
-        Mono<UserGenerate> userGenerateMono=userService.findById(request.pathVariable("id")).map(u -> {
+        Mono<UserGenerate> userGenerateMono = userService.findById(request.pathVariable("id")).map(u -> {
             UserGenerate userGenerate = UserGenerate.builder().build();
             BeanUtils.copyProperties(u, userGenerate);
             return userGenerate;
@@ -109,6 +103,5 @@ public class UserHandler {
         return ok().contentType(APPLICATION_STREAM_JSON)
                 .body(userService.existsById(request.pathVariable("id")), Boolean.class);
     }
-
 
 }

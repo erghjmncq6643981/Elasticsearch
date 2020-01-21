@@ -13,7 +13,6 @@
 package com.chandler.spring.elasticsearch.example.entity;
 
 import lombok.*;
-import lombok.experimental.Tolerate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
