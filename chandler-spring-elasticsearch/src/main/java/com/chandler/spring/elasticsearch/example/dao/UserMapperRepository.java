@@ -18,7 +18,7 @@ import org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRe
 import reactor.core.publisher.Flux;
 
 /**
- * 类功能描述
+ * crud Repository
  *
  * @author 钱丁君-chandler 2020/1/19 6:27 PM
  * @since 1.8
