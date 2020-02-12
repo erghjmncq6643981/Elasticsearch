@@ -40,7 +40,7 @@ public class UserRouterTest {
     @Test
     public void route() {
          webTestClient.get()
-                .uri("/users").accept(MediaType.APPLICATION_STREAM_JSON).exchange()
+                .uri("/users/find?name=chandler").accept(MediaType.APPLICATION_STREAM_JSON).exchange()
                 .expectStatus().isOk().returnResult(UserGenerate.class).getResponseBody()
                  .subscribe(u->log.info("spring webflux UserGenerate:{}", u.toString()));
     }

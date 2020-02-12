@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
  * @version 1.0.0
  * @since 1.8
  */
-public interface UserService {
+    public interface UserService {
     /**
      * @param [name]
      * @return reactor.core.publisher.Flux<com.chandler.spring.elasticsearch.example.entity.User>
@@ -47,7 +47,7 @@ public interface UserService {
     /**
      * @param [ids]
      * @return reactor.core.publisher.Flux<com.chandler.spring.elasticsearch.example.entity.User>
-     * @Description: 通过ID查询用户
+     * @Description: 通过多个ID查询多个用户
      *
      * @Autnor chandler
      * @create 2020/1/19 6:44 PM

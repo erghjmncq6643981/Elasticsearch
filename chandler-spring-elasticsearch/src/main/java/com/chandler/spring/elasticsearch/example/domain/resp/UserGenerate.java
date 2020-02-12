@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * BeanUtils.copyProperties(User, UserResponse);
- *
+ * user响应对象
  * @author 钱丁君-chandler 2020/1/19 6:53 PM
  * @version 1.0.0
  * @since 1.8

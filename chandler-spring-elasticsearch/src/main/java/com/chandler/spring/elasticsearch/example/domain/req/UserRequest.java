@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 类功能描述
+ * user请求对象
  *
  * @author 钱丁君-chandler 2020/1/19 6:52 PM
  * @version 1.0.0
