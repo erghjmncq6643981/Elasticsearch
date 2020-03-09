@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=/com.chandler.spring.elasticsearch.example.config.CustomAutoConfiguration
